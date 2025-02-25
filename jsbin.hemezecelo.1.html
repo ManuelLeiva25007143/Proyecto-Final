@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2025 by anonymous (http://jsbin.com/hemezecelo/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+
+<script id="jsbin-javascript">
+// Función para calcular el recargo por edad
+function calcularRecargo(edad, precioBase) {
+    if (edad >= 18 && edad <= 24) {
+        return 0.10 * precioBase;  // Recargo 10%
+    } else if (edad >= 25 && edad <= 49) {
+        return 0.20 * precioBase;  // Recargo 20%
+    } else if (edad >= 50) {
+        return 0.30 * precioBase;  // Recargo 30%
+    } else {
+        return 0;  // Sin recargo si no cumple con las condiciones
+    }
+}
+
+// Función para calcular el recargo por la cantidad de hijos
+function calcularRecargoHijos(cantidadHijos, precioBase) {
+    return cantidadHijos * 0.20 * precioBase;  // 20% por cada hijo
+}
+
+// Función principal para realizar la cotización
+function realizarCotizacion() {
+    // Precio base de la cotización
+    const precioBase = 2000;
+
+    // Solicitar los datos del asegurado
+    const edadAsegurado = parseInt(prompt("Ingresa la edad del asegurado: "));
+    if (edadAsegurado < 18) {
+        alert("No se puede realizar la cotización. La persona no es mayor de edad.");
+        return;  // Termina la función si no es mayor de edad
+    }
+
+    const edadConyuge = parseInt(prompt("Ingresa la edad del cónyuge (si aplica, 0 si no tiene): "));
+    const cantidadHijos = parseInt(prompt("Ingresa la cantidad de hijos: "));
+
+    // Calcular el recargo para el asegurado
+    const recargoAsegurado = calcularRecargo(edadAsegurado, precioBase);
+
+    // Calcular el recargo para el cónyuge
+    let recargoConyuge = 0;
+    if (edadConyuge > 0) {
+        recargoConyuge = calcularRecargo(edadConyuge, precioBase);
+    }
+
+    // Calcular el recargo por los hijos
+    const recargoHijos = calcularRecargoHijos(cantidadHijos, precioBase);
+
+    // Calcular el precio total
+    const precioTotal = precioBase + recargoAsegurado + recargoConyuge + recargoHijos;
+
+    // Mostrar los resultados
+    alert(`Precio base: Q.${precioBase}`);
+    alert(`Recargo asegurado: Q.${recargoAsegurado}`);
+    alert(`Recargo cónyuge: Q.${recargoConyuge}`);
+    alert(`Recargo por hijos: Q.${recargoHijos}`);
+    alert(`Precio final: Q.${precioTotal}`);
+}
+
+// Llamar a la función para realizar la cotización
+realizarCotizacion();
+
+</script>
+</body>
+</html>
